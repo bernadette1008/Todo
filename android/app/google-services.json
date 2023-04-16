@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "217766234276",
+    "firebase_url": "https://taeil-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "taeil-test",
+    "storage_bucket": "taeil-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217766234276:android:f39ad5d51f4c4a33723e31",
+        "android_client_info": {
+          "package_name": "com.example.test0415"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217766234276-f63rea68ka11ohkcvp5ctd65dc7kvu4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6UP5VgDA0Hso1O9PRkCbzgP6L0YlViFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217766234276-f63rea68ka11ohkcvp5ctd65dc7kvu4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "217766234276-d3l5n3mpkpllj9b9maumkf864vtmk8jk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todolisttest0407"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217766234276:android:1c32e5d61d9e02f3723e31",
+        "android_client_info": {
+          "package_name": "com.example.todolisttest0407"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217766234276-f63rea68ka11ohkcvp5ctd65dc7kvu4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6UP5VgDA0Hso1O9PRkCbzgP6L0YlViFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217766234276-f63rea68ka11ohkcvp5ctd65dc7kvu4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "217766234276-d3l5n3mpkpllj9b9maumkf864vtmk8jk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todolisttest0407"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
