@@ -4,16 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:table_calendar/table_calendar.dart'; // TABLECALENDAR 추가
 import 'package:firebase_database/firebase_database.dart';
 import 'firebase_options.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//
+//   runApp(AuthAndDatabaseExample());
+// }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 날짜와 시간의 형식을 초기화
+  await initializeDateFormatting();
+
+  // Firebase 초기화
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // 앱 실행
   runApp(AuthAndDatabaseExample());
 }
 
@@ -105,9 +121,26 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   final DatabaseReference _databaseReference =
   FirebaseDatabase.instance.reference().child('todos');
-
+  final TextEditingController _textEditingController = TextEditingController();
   List<String> _todos = [];
   String _newTodo = '';
+
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _selectedDay = DateTime.now();
+
+  void _onDaySelected(DateTime day, List events, List holidays) {
+    setState(() {
+      _selectedDay = day;
+    });
+  }
+
+  DateTime selectedDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
+  DateTime focusedDay = DateTime.now();
 
   void _fetchTodos() {
     _databaseReference.onValue.listen((event) {
@@ -118,40 +151,15 @@ class _TodoListPageState extends State<TodoListPage> {
       });
     });
   }
-
-  // void _addTodo() async {
-  //   String todo = _newTodo.trim();
-  //   if (todo.isNotEmpty) {
-  //     String? userId = FirebaseAuth.instance.currentUser?.uid;
-  //     if (userId != null) {
-  //       await FirebaseFirestore.instance
-  //           .collection('todos')
-  //           .doc(userId)
-  //           .collection('userTodos')
-  //           .add({'todo': todo});
-  //       setState(() {
-  //         _newTodo = '';
-  //       });
-  //     }
-  //   }
-  // }
-  // 버전1, 우선구현
-
-  // FirebaseAuth auth = FirebaseAuth.instance;
-  // FirebaseUser user = await auth.currentUser();
-  // if (user != null) {
-  // String email = user.email;
-  // print('사용자 이메일: $email');
-  // }유저의 이메일을 가져오는법.
-
   void _addTodo() async {
-    String todo = _newTodo.trim();
-    if (todo.isNotEmpty) {
+    // String todo = _newTodo.trim();
+    String message = _textEditingController.text;
+    if (message.isNotEmpty) {
       String? userEmail = FirebaseAuth.instance.currentUser?.email;
       if (userEmail != null) {
         Map<String, dynamic> todoData = {
-          'todo': todo,
-          'timestamp': DateTime.now(), // 현재 시간 추가
+          'todo': message,
+          'timestamp': selectedDay, // 현재 시간 추가
         };
         await FirebaseFirestore.instance
             .collection('users')
@@ -160,53 +168,15 @@ class _TodoListPageState extends State<TodoListPage> {
             .add(todoData);
         setState(() {
           _newTodo = '';
+          _textEditingController.clear();
         });
       }
     }
   }
 
-// 버전2
-
-  // void _addTodo() async {
-  //   String todo = _newTodo.trim();
-  //   if (todo.isNotEmpty) {
-  //     String? userId = FirebaseAuth.instance.currentUser?.uid;
-  //     if (userId != null) {
-  //       // 해당 유저의 현재 todo 개수를 조회
-  //       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-  //           .collection('todos')
-  //           .doc(userId)
-  //           .get();
-  //       Map<String, dynamic>? userData = userSnapshot.exists
-  //           ? userSnapshot.data() as Map<String, dynamic>?
-  //           : null;
-  //       int currentTodoCount = userData?['count'] ?? 0;
-  //
-  //       // 새로운 todo 문서를 추가하고 필드 값을 설정
-  //       Map<String, dynamic> todoData = {
-  //         'todo': todo,
-  //         'timestamp': FieldValue.serverTimestamp(),
-  //         'count': currentTodoCount + 1, // 현재 개수에 +1을 설정
-  //       };
-  //       await FirebaseFirestore.instance
-  //           .collection('todos')
-  //           .doc(userId)
-  //           .collection('userTodos')
-  //           .doc('${currentTodoCount + 1}') // 문서 이름을 현재 개수 + 1로 설정
-  //           .set(todoData);
-  //       setState(() {
-  //         _newTodo = '';
-  //       });
-  //     }
-  //   }
-  // }
-  //3번이구연
-
-
   void _deleteTodo(String todo) {
     _databaseReference.child(todo).remove();
   }
-
   @override
   void initState() {
     super.initState();
@@ -219,9 +189,29 @@ class _TodoListPageState extends State<TodoListPage> {
       appBar: AppBar(title: Text('Todo List')),
       body: Column(
         children: <Widget>[
+          TableCalendar(
+            locale: 'ko_KR',
+            calendarFormat: _calendarFormat,
+            // onDaySelected: _onDaySelected(DateTime selectedDay, DateTime focusedDay),
+            firstDay: DateTime.utc(2021, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            focusedDay: focusedDay,
+            onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+              // 선택된 날짜의 상태를 갱신합니다.
+              setState((){
+                this.selectedDay = selectedDay;
+                this.focusedDay = focusedDay;
+              });
+            },
+            selectedDayPredicate: (DateTime day) {
+              // selectedDay 와 동일한 날짜의 모양을 바꿔줍니다.
+              return isSameDay(selectedDay, day);
+            },
+          ),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+              controller: _textEditingController,
               onChanged: (value) {
                 setState(() {
                   _newTodo = value;
@@ -234,21 +224,6 @@ class _TodoListPageState extends State<TodoListPage> {
                   onPressed: _addTodo,
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _todos.length,
-              itemBuilder: (context, index) {
-                String todo = _todos[index];
-                return ListTile(
-                  title: Text(todo),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () => _deleteTodo(todo),
-                  ),
-                );
-              },
             ),
           ),
           Expanded(
@@ -317,17 +292,14 @@ class TodoListWidget extends StatelessWidget {
           // 에러가 발생한 경우 에러 메시지를 표시
           return Text('Error: ${snapshot.error}');
         }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           // 데이터 로딩 중인 경우 로딩 스피너를 표시
           return CircularProgressIndicator();
         }
-
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           // 데이터가 없는 경우 '데이터가 없음'을 표시
           return Text('No Data');
         }
-
         // 데이터가 있는 경우 ListView.builder를 사용하여 리스트 생성
         return ListView.builder(
           itemCount: snapshot.data?.size,
@@ -367,15 +339,25 @@ class TodoListWidget extends StatelessWidget {
 class Todo {
   final String todo;
   final DateTime timestamp;
+  final Timestamp? timestampChk;
+
   Todo({
     required this.todo,
     required this.timestamp,
+    this.timestampChk,
   });
 
+  // factory Todo.fromMap(Map<String, dynamic> map) {
+  //   return Todo(
+  //     todo: map['todo'],
+  //     timestamp: map['timestamp'].toDate()
+  //   );
+  // }
   factory Todo.fromMap(Map<String, dynamic> map) {
     return Todo(
       todo: map['todo'],
-      timestamp: map['timestamp'].toDate()
+      timestamp: map['timestamp'] != null ? map['timestamp'].toDate() : null,
     );
   }
+
 }
