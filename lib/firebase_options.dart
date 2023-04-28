@@ -44,43 +44,43 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCp-UydTsa0_2IW-20Bjx8nYxnYww8jIM4',
-    appId: '1:217766234276:web:afd8bd8ad6d18cc2723e31',
-    messagingSenderId: '217766234276',
-    projectId: 'taeil-test',
-    authDomain: 'taeil-test.firebaseapp.com',
-    databaseURL: 'https://taeil-test-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'taeil-test.appspot.com',
+    apiKey: 'AIzaSyBmdc3cYzkdbLD_uEI-XnQbtFn_AZhkKY4',
+    appId: '1:409763267925:web:3d39920e8bff5a225a1bdc',
+    messagingSenderId: '409763267925',
+    projectId: 'safdsaf-d85f6',
+    authDomain: 'safdsaf-d85f6.firebaseapp.com',
+    databaseURL: 'https://safdsaf-d85f6-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'safdsaf-d85f6.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD6UP5VgDA0Hso1O9PRkCbzgP6L0YlViFg',
-    appId: '1:217766234276:android:f39ad5d51f4c4a33723e31',
-    messagingSenderId: '217766234276',
-    projectId: 'taeil-test',
-    databaseURL: 'https://taeil-test-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'taeil-test.appspot.com',
+    apiKey: 'AIzaSyDAlHgLuMeYErjqagxsMkgi1_sdg3v_6E8',
+    appId: '1:409763267925:android:622fe6a0367ef2355a1bdc',
+    messagingSenderId: '409763267925',
+    projectId: 'safdsaf-d85f6',
+    databaseURL: 'https://safdsaf-d85f6-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'safdsaf-d85f6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCm42taDRqI-8F8Fowh_H2KwKqX7wfRWkE',
-    appId: '1:217766234276:ios:a014084964f9c9ab723e31',
-    messagingSenderId: '217766234276',
-    projectId: 'taeil-test',
-    databaseURL: 'https://taeil-test-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'taeil-test.appspot.com',
-    iosClientId: '217766234276-fo2b4qpfivevroq1ajpfmpo3tot5sold.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCuiVpUbCZlL9ifgxE6SLin8-z7-hqGNpQ',
+    appId: '1:409763267925:ios:fb1a9ac83529af6e5a1bdc',
+    messagingSenderId: '409763267925',
+    projectId: 'safdsaf-d85f6',
+    databaseURL: 'https://safdsaf-d85f6-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'safdsaf-d85f6.appspot.com',
+    iosClientId: '409763267925-59m555m3cmeqe4l538ocr5aaps7404oo.apps.googleusercontent.com',
     iosBundleId: 'com.example.test0415',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCm42taDRqI-8F8Fowh_H2KwKqX7wfRWkE',
-    appId: '1:217766234276:ios:a014084964f9c9ab723e31',
-    messagingSenderId: '217766234276',
-    projectId: 'taeil-test',
-    databaseURL: 'https://taeil-test-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'taeil-test.appspot.com',
-    iosClientId: '217766234276-fo2b4qpfivevroq1ajpfmpo3tot5sold.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCuiVpUbCZlL9ifgxE6SLin8-z7-hqGNpQ',
+    appId: '1:409763267925:ios:fb1a9ac83529af6e5a1bdc',
+    messagingSenderId: '409763267925',
+    projectId: 'safdsaf-d85f6',
+    databaseURL: 'https://safdsaf-d85f6-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'safdsaf-d85f6.appspot.com',
+    iosClientId: '409763267925-59m555m3cmeqe4l538ocr5aaps7404oo.apps.googleusercontent.com',
     iosBundleId: 'com.example.test0415',
   );
 }
